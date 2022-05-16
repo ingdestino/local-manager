@@ -513,7 +513,28 @@ class MMtoLMConfig(RequestHandler):
 
     def get(self, id):
         """Handles the behaviour of GET calls"""
-        self.write('NOT SUPPOSED TO GET!')
+        global sm_dict
+        global qtcode_dict
+        global local_manager
+
+        lm = {}
+        if local_manager is not None:
+            lm = {
+                "amqp_server": local_manager.server,
+                "connection_state": local_manager.get_connection_state(),
+                "receiver_topic": OSENV_RECEIVER_BROKER_TOPIC
+            }
+        situation = {
+            "sm_dict": sm_dict,
+            "qtcode_dict": qtcode_dict,
+            "local_manager": lm,
+            "response_router": {
+                "endpoint": OSENV_RESPONSE_ROUTER_EP,
+                "api_url": OSENV_RESPONSE_ROUTER_API
+            }
+        }
+        general_log.debug(situation)
+        self.write(json.dumps(situation))
 
     def delete(self, id):
         """Handles the behaviour of DELETE calls"""
