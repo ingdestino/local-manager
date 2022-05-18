@@ -153,18 +153,12 @@ qtcode_dict = {}
 
 
 def get_config(json_config):
-    """
-    qtcode_dict = {
-        <qtcode> : <message_id>
-        <qtcode> : <message_id>
-        ...
-    }
 
-    sm_dict = {
-        <message_id>: <message_endpoints>
-        ...
-    }
-    """
+    global sm_dict
+    global qtcode_dict
+
+    sm_dict = {}
+    qtcode_dict = {}
 
     amqp_ep = json_config["ref_amqp_ep"]
     amqp_user = json_config["ref_amqp_user"]
