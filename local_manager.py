@@ -534,6 +534,8 @@ class MMtoLMConfig(RequestHandler):
             }
         }
         general_log.debug(situation)
+
+        self.set_header("Content-Type", 'application/json')
         self.write(json.dumps(situation))
 
     def delete(self, id):
